@@ -41,7 +41,7 @@ import customtkinter as ctk
 # Fallback string used in log messages on the rare path where even
 # `import predict` fails (e.g. joblib isn't installed), so we can't
 # ask the predict module itself where the model lives.
-FALLBACK_MODEL_PATH_STR = "Velaris/baseline_model_v1.pkl"
+FALLBACK_MODEL_PATH_STR = "voice_deepfake_xgboost.json"
 
 # ----------------------------------------------------------------------
 # THEME
