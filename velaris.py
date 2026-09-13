@@ -1,5 +1,5 @@
 """
-VOICEGUARD — AI Voice & Deepfake Detection
+VELARIS — AI Voice & Deepfake Detection
 Desktop demo UI, wired to a real analysis pipeline:
 
     1. preprocess.py       -> convert whatever file you load to 16kHz mono WAV
@@ -7,20 +7,7 @@ Desktop demo UI, wired to a real analysis pipeline:
     3. predict.py           -> run those features through the trained model
 
 Steps 1 and 2 run for real as soon as you click START ANALYSIS. Step 3
-needs a trained model file at Ai_training_data/baseline_model_v1.pkl —
-until that file exists, VoiceGuard logs a warning and falls back to a
-clearly-labeled simulated result, so the whole pipeline is exercised
-end-to-end even before the model is dropped in. Once you add the .pkl,
-no code changes are needed — it's picked up automatically.
-
-The exact same logic the UI runs is also available from the terminal:
-    python predict.py path/to/audio.wav
-
-Optional dependencies:
-    pip install customtkinter numpy soundfile   (UI + waveform preview)
-    pip install librosa pydub joblib pandas      (real analysis pipeline)
-    ffmpeg on your PATH                          (mp3/m4a decoding)
-Anything missing degrades gracefully rather than crashing the app.
+needs a trained model file at Ai_training_data/voice_deepfake_xgboost.json—
 """
 
 import math
@@ -814,7 +801,7 @@ class VoiceGuardApp(ctk.CTk):
             self._progress_target = 0.7
 
             if model is not None:
-                self._log_ts("MODEL", "Running inference against baseline_model_v1...")
+                self._log_ts("MODEL", "Running inference against Final_model_v1...")
                 result = self._run_model_inference(model, features)
             else:
                 self._log_ts("WARNING",
@@ -881,7 +868,7 @@ class VoiceGuardApp(ctk.CTk):
                 text="● SIMULATED — model not loaded yet", text_color=COLORS["warn"])
         else:
             self.model_status_label.configure(
-                text="● Verified by baseline_model_v1", text_color=COLORS["ok"])
+                text="● Verified by Final_model_v1", text_color=COLORS["ok"])
 
         self._progress_target = 1.0
         self._progress_display = 1.0
